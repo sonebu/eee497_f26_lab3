@@ -1,0 +1,42 @@
+EEE 497 - Lab 03
+Read a Morse tone under the noise
+
+A pilot tone is on the air the whole time. Your tone is at a fixed offset
+above it. That number will be given to you. Your tone is keyed in Morse 
+and it is weaker than the noise. The transmission is looping. 
+
+Your job is to report the decoded text from a recording.
+
+It's recommended to record about 4 seconds. Tune to 433 MHz.
+
+Ubuntu:
+
+    rtl_sdr -f 433000000 -s 2048000 -g 49 -n 8192000 capture.iq
+
+Windows, from the folder that contains rtl_sdr.exe:
+
+    rtl_sdr.exe -f 433000000 -s 2048000 -g 49 -n 8192000 capture.iq
+
+you have the following tools for this lab to help you:
+
+    spectrum(x, fs)              frequency and power of one long FFT
+    pilot_hz(x, fs)              frequency of the loudest line, 20 to 120 kHz
+    cut_into_units(x, fs, start) one row per 10 ms, from sample start
+    runs(on)                     stretches of equal values, and their lengths
+    decode(on)                   text from one True or False per unit
+    plot_line, plot_histogram    save a plot to a file
+
+Morse timing, in units, is given below --> One unit is 10 ms:
+
+    a dot is 1 unit
+    a dash is 3 units
+    the gap inside a letter is 1 unit
+    the gap between letters is 3 units
+    the gap between words is 7 units
+
+Nothing is sent from 20 to 40 kHz below the pilot. Thus, your detector, 
+run there, will give you the noise stats. 
+
+The deliverable is your complete code package, showing all intermediate steps
+towards decoding the morse code you receive, as either plots or terminal prints.
+
